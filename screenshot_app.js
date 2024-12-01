@@ -10,7 +10,7 @@ async function takeScreenshot(url, outputFile) {
 }
 
 async function main() {
-    const url = 'https://www.example.com';
+    const url = 'https://prezenta.roaep.ro/parlamentare01122024/pv/romania/results';
     while (true) {
         const timestamp = Date.now();
         const outputFile = `screenshot_${timestamp}.png`;
