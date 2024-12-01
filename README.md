@@ -29,7 +29,30 @@ npm start -- https://example.com
 
 The screenshots will be saved in the `out/` directory, organized by the sanitized URL.
 
-## Notes
+## Timelapse Creation
+
+This application also includes a script to create a timelapse video from the screenshots taken by the Screenshot App.
+
+### Usage
+
+To create a timelapse video, run the following command:
+
+```bash
+node timelapse_creator.js <directory>
+```
+
+Replace `<directory>` with the path to the directory containing the screenshots. For example:
+
+```bash
+node timelapse_creator.js out/example_com
+```
+
+The timelapse video will be saved in the same directory as `timelapse.mp4`.
+
+### Notes
+
+- Ensure that the directory contains screenshots in the format `screenshot_<timestamp>.png`.
+- The script uses `ffmpeg` to create the video, so make sure `ffmpeg` is installed and available in your system's PATH.
 
 - Ensure that the URL is accessible and correct.
 - The application will continue to take screenshots every minute until stopped.
