@@ -15,7 +15,7 @@ async function takeScreenshot(url, outputFile) {
                     <text x="50%" y="30" font-size="24" fill="white" stroke="black" stroke-width="1" text-anchor="middle">${timestamp}</text>
                 </svg>`
             ),
-            gravity: 'southeast'
+            gravity: 'north'
         }])
         .toFile(outputFile);
     await browser.close();
