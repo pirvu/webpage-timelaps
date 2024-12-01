@@ -15,6 +15,10 @@ function createTimelapse(inputDir) {
 
     const ffmpegProcess = spawn('ffmpeg', ['-y', '-framerate', '1', '-pattern_type', 'glob', '-i', `${inputDir}/screenshot_*.png`, '-c:v', 'libx264', '-r', '30', '-pix_fmt', 'yuv420p', outputFile]);
 
+    ffmpegProcess.stdout.on('data', (data) => {
+        console.log(`FFmpeg stdout: ${data}`);
+    });
+
     ffmpegProcess.stderr.on('data', (data) => {
         console.error(`FFmpeg stderr: ${data}`);
     });
