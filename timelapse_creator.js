@@ -1,14 +1,8 @@
 const fs = require('fs');
 const { exec } = require('child_process');
 
-function sanitizeUrl(url) {
-    return url.replace(/https?:\/\//, '').replace(/[\/:]/g, '_');
-}
-
-function createTimelapse(url) {
-    const sanitizedUrl = sanitizeUrl(url);
-    const inputDir = `out/${sanitizedUrl}`;
-    const outputFile = `out/${sanitizedUrl}/timelapse.mp4`;
+function createTimelapse(inputDir) {
+    const outputFile = `${inputDir}/timelapse.mp4`;
 
     if (!fs.existsSync(inputDir)) {
         console.error(`Directory ${inputDir} does not exist.`);
@@ -36,5 +30,5 @@ if (args.length === 0) {
     process.exit(1);
 }
 
-const url = args[0];
-createTimelapse(url);
+const inputDir = args[0];
+createTimelapse(inputDir);
