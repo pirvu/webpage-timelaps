@@ -1,11 +1,23 @@
 const { chromium } = require('playwright');
 const fs = require('fs');
+const sharp = require('sharp');
 
 async function takeScreenshot(url, outputFile) {
     const browser = await chromium.launch();
     const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
     await page.goto(url, { waitUntil: 'networkidle' });
-    await page.screenshot({ path: outputFile });
+    const buffer = await page.screenshot();
+    const timestamp = new Date().toLocaleString();
+    await sharp(buffer)
+        .composite([{
+            input: Buffer.from(
+                `<svg>
+                    <text x="10" y="30" font-size="24" fill="white" stroke="black" stroke-width="1">${timestamp}</text>
+                </svg>`
+            ),
+            gravity: 'southeast'
+        }])
+        .toFile(outputFile);
     await browser.close();
 }
 
