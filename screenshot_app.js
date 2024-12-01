@@ -12,11 +12,11 @@ async function takeScreenshot(url, outputFile) {
         .composite([{
             input: Buffer.from(
                 `<svg>
-                    <text x="50%" y="50" font-size="24" fill="white" stroke="black" stroke-width="1" text-anchor="middle">${timestamp}</text>
+                    <text font-size="24" fill="black" stroke="black" stroke-width="1" text-anchor="middle">${timestamp}</text>
                 </svg>`
             ),
-            height: 100,
-            gravity: 'north'
+            height: 30,
+            gravity: 'center'
         }])
         .toFile(outputFile);
     await browser.close();
