@@ -9,7 +9,9 @@ function createTimelapse(inputDir) {
         process.exit(1);
     }
 
-    const command = `ffmpeg -framerate 1 -pattern_type glob -i '${inputDir}/screenshot_*.png' -c:v libx264 -r 30 -pix_fmt yuv420p ${outputFile}`;
+    const command = `ffmpeg -y -framerate 1 -pattern_type glob -i '${inputDir}/screenshot_*.png' -c:v libx264 -r 30 -pix_fmt yuv420p ${outputFile}`;
+
+    console.log("Running", command);
 
     exec(command, (error, stdout, stderr) => {
         if (error) {
