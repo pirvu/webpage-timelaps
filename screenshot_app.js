@@ -3,7 +3,7 @@ const fs = require('fs');
 
 async function takeScreenshot(url, outputFile) {
     const browser = await chromium.launch();
-    const page = await browser.newPage();
+    const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
     await page.goto(url, { waitUntil: 'networkidle' });
     await page.screenshot({ path: outputFile });
     await browser.close();
