@@ -5,6 +5,7 @@ This application takes a screenshot of a specified web page every minute using N
 ## Prerequisites
 
 - Node.js installed on your system
+- FFmpeg installed and available in your system's PATH
 - Playwright installed as a dependency
 
 ## Installation
