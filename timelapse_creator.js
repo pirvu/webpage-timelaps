@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { exec } = require('child_process');
+const { spawn } = require('child_process');
 
 function createTimelapse(inputDir) {
     const outputFile = `${inputDir}/timelapse.mp4`;
@@ -13,13 +13,15 @@ function createTimelapse(inputDir) {
 
     console.log("Running", command);
 
-    exec(command, (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Error creating timelapse: ${error.message}`);
-            return;
-        }
-        if (stderr) {
-            console.error(`FFmpeg stderr: ${stderr}`);
+    const ffmpegProcess = spawn('ffmpeg', ['-y', '-framerate', '1', '-pattern_type', 'glob', '-i', `${inputDir}/screenshot_*.png`, '-c:v', 'libx264', '-r', '30', '-pix_fmt', 'yuv420p', outputFile]);
+
+    ffmpegProcess.stderr.on('data', (data) => {
+        console.error(`FFmpeg stderr: ${data}`);
+    });
+
+    ffmpegProcess.on('close', (code) => {
+        if (code !== 0) {
+            console.error(`FFmpeg process exited with code ${code}`);
             return;
         }
         console.log(`Timelapse created at ${outputFile}`);
